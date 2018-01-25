@@ -9,6 +9,8 @@
 
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "(config|EXPORTED_SYMBOLS)" }]*/
 var EXPORTED_SYMBOLS = ["config"];
+// TODO change testing survey endings to production survey endings
+const SURVEY_URL = "https://qsurvey.mozilla.com/collab/tp-perception";
 
 var config = {
   // required STUDY key
@@ -40,26 +42,30 @@ var config = {
     "endings": {
       /** standard endings */
       "user-disable": {
-        "baseUrl": "http://www.example.com/?reason=user-disable",
+        "baseUrl": `${SURVEY_URL}?action=disable&reason=user-disable`,
       },
       "ineligible": {
-        "baseUrl": "http://www.example.com/?reason=ineligible",
+        "baseUrl": null,
       },
       "expired": {
-        "baseUrl": "http://www.example.com/?reason=expired",
+        "baseUrl": `${SURVEY_URL}?action=eos&reason=expired`,
       },
       /** User defined endings */
-      "used-often": {
-        "baseUrl": "http://www.example.com/?reason=used-often",
-        "study_state": "ended-positive",  // neutral is default
+      "user-disabled-builtin-tracking-protection": {
+        "baseUrl": `${SURVEY_URL}?action=disable&reason=user-disabled-builtin-tracking-protection`,
+        "study_state": "ended-negative",  // neutral is default
       },
-      "a-non-url-opening-ending": {
-        "study_state": "ended-neutral",
-        "baseUrl":  null,
+      "user-enabled-builtin-tracking-protection": {
+        "baseUrl": `${SURVEY_URL}?action=disable&reason=user-enabled-builtin-tracking-protection`,
+        "study_state": "ended-positive",
       },
-      "introduction-leave-study": {
+      "introduction-confirmation-leave-study": {
+        "baseUrl": `${SURVEY_URL}?action=disable&reason=introduction-confirmation-leave-study`,
         "study_state": "ended-negative",
-        "baseUrl": "http://www.example.com/?reason=introduction-leave-study",
+      },
+      "page-action-confirmation-leave-study": {
+        "baseUrl": `${SURVEY_URL}?action=disable&reason=page-action-confirmation-leave-study`,
+        "study_state": "ended-negative",
       },
     },
     "telemetry": {
